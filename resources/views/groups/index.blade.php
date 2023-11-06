@@ -38,9 +38,9 @@
                       <th>Name</th>                  
                        <th>Description</th>
                        <th>Image</th>
-                       <th>Category Name</th>
+                       <th>Type</th>
                        <th>Group Link</th>
-                       <th>Views</th>
+                       <th>Reports</th>
                        <th>Count</th>
                        <th>Status</th>
                     </tr>
@@ -67,31 +67,32 @@
 
 
   <script>
-    $(document).ready(function () {         
-      var table = $('#games-details-list').DataTable({         
-      processing: true,
-      serverSide: true,
-      responsive: false,
-    
-      ajax: "{{ route('groups.list') }}",
-      columns: [
+   $(document).ready(function () {         
+  var table = $('#games-details-list').DataTable({         
+    processing: true,
+    serverSide: true,
+    responsive: false,
+    ajax: "{{ route('groups.list') }}",
+    columns: [
       { data: 'DT_RowIndex', name: 's.no'},
       { data: 'name', name: 'name'},      
       { data: 'description', name: 'description'},  
       { data: 'image', name: 'image'},  
-      { data: 'category_id', name: 'category_id'},
-      
+      { 
+        data: function (row) {
+          return row.is_link === 0 ? 'whatsapp' : 'Telegram';
+        },
+        name: 'is_link'
+      },
       { data: 'link', name: 'link'},  
-   
       { data: 'views', name: 'views'},
       { data: 'count', name: 'count'},
       { data: 'status', name: 'status'},
-     
-               
-      ],
+    ],
     //   order: [[1, 'desc']]
-      });
-    });
+  });
+});
+
 </script>
 
 <script>

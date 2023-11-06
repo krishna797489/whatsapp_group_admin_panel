@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\models\Groups;
+use App\Models\Groups;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
 
@@ -31,7 +31,7 @@ class GroupsController extends Controller
 
  public function list(Request $request)
  {
- // echo"<pre>";print_r($request->All());exit;
+
      if (!$request->ajax()) {
          return response()->json([
            "status" => "fail",
@@ -39,7 +39,7 @@ class GroupsController extends Controller
          ], 401);
        }
    
-       $list = Groups::get();
+       $list = Groups::orderBy('id','Desc')->get();
        return datatables($list)
          ->addIndexColumn()
          ->addColumn('status', function ($row) {
@@ -69,12 +69,12 @@ class GroupsController extends Controller
      $user->save();
      return response()->json(array(
        'error' => 0,
-       'msg' => "Groups status has been changed successfully."
+       'msg' => "Staff status has been changed successfully."
      ), 200);
    } else {
      return response()->json(array(
        'error' => 1,
-       'msg' => "Groups status failed to change."
+       'msg' => "Staff status failed to change."
      ), 200);
    }
  }
